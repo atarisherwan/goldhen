@@ -1,235 +1,490 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" manifest="cache.appcache">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+>
+
 <title>ATARI SHERWAN | GoldHEN</title>
 
+
 <style>
+
 *{
     box-sizing:border-box;
 }
 
-html,body{
+
+html,
+body{
+
     margin:0;
+
     width:100%;
     height:100%;
+
     overflow:hidden;
+
     background:#000;
 }
 
+
 body{
-    font-family:Arial,Helvetica,sans-serif;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 }
+
 
 .hero{
+
     width:100%;
     height:100%;
+
     display:flex;
+
     align-items:flex-end;
+
     justify-content:center;
-    padding:0 24px 7vh;
+
+    padding:
+        0
+        24px
+        7vh;
+
 
     background:
-      linear-gradient(
-        to bottom,
-        rgba(0,0,0,.02),
-        rgba(0,0,0,.18)
-      ),
-      url("atari_sherwan.png")
-      center center/cover no-repeat;
+
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.02),
+            rgba(0,0,0,.18)
+        ),
+
+        url("atari_sherwan.png")
+        center
+        center
+        /
+        cover
+        no-repeat;
 }
 
-#start{
-    min-width:360px;
-    padding:20px 52px;
 
-    border:2px solid #ffd21a;
+
+#start{
+
+    min-width:360px;
+
+    padding:
+        20px
+        52px;
+
+
+    border:
+        2px
+        solid
+        #ffd21a;
+
+
     border-radius:18px;
 
+
     background:
-      linear-gradient(
-        180deg,
-        rgba(43,32,3,.94),
-        rgba(3,3,3,.97)
-      );
+
+        linear-gradient(
+            180deg,
+            rgba(43,32,3,.94),
+            rgba(3,3,3,.97)
+        );
+
 
     color:#fff;
+
+
     font-size:25px;
+
     font-weight:900;
+
     letter-spacing:2px;
+
 
     cursor:pointer;
 
+
     box-shadow:
-      0 0 13px #ffcf00,
-      0 0 38px rgba(255,190,0,.62),
-      inset 0 0 22px rgba(255,190,0,.14);
+
+        0 0 13px #ffcf00,
+
+        0 0 38px
+        rgba(255,190,0,.62),
+
+        inset
+        0 0 22px
+        rgba(255,190,0,.14);
+
 
     text-shadow:
-      0 0 10px rgba(255,210,0,.65);
+
+        0 0 10px
+        rgba(255,210,0,.65);
 }
 
+
+
 #start:focus{
-    outline:2px solid #fff;
+
+    outline:
+        2px
+        solid
+        #fff;
+
     outline-offset:4px;
 }
 
+
+
 #start:active{
-    transform:scale(.98);
+
+    transform:
+        scale(.98);
 }
 
-/* chain ـەکان پێویستیان بەمانە هەیە،
-   بەڵام لە UI ـدا پیشانیان نادەین */
+
+
+/*
+chain ـەکان
+ئەم دوو element ـەیان پێویستە.
+
+بەڵام لە UI ـدا
+پیشانیان نادەین.
+*/
+
 #state,
 #out{
+
     display:none;
 }
 
+
+
 @media(max-width:600px){
+
     #start{
+
         min-width:270px;
-        padding:16px 28px;
+
+        padding:
+            16px
+            28px;
+
         font-size:20px;
     }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <main class="hero">
-    <button id="start" type="button">
+
+    <button
+        id="start"
+        type="button"
+    >
+
         START GOLDHEN
+
     </button>
+
 </main>
 
+
+
 <div id="state"></div>
+
 <div id="out"></div>
 
+
+
 <script>
+
 (function(){
 
-    var btn =
-        document.getElementById("start");
 
-    var stateEl =
-        document.getElementById("state");
+    var btn =
+        document.getElementById(
+            "start"
+        );
+
+
 
     function detect(){
 
+
         var m =
-          /PlayStation\s+4[\/ ](\d+)\.(\d+)/
-          .exec(navigator.userAgent);
+
+            /PlayStation\s+4[\/ ](\d+)\.(\d+)/
+
+            .exec(
+                navigator.userAgent
+            );
+
+
 
         if(!m){
+
             return null;
         }
 
+
+
         var major =
-            parseInt(m[1],10);
+
+            parseInt(
+                m[1],
+                10
+            );
+
+
 
         var minorHex =
-            parseInt(m[2],16);
+
+            parseInt(
+                m[2],
+                16
+            );
+
+
 
         var minor =
-            minorHex.toString(16);
 
-        if(minor.length < 2){
-            minor = "0" + minor;
+            minorHex
+            .toString(16);
+
+
+
+        if(
+            minor.length < 2
+        ){
+
+            minor =
+                "0" + minor;
         }
 
+
+
         var fw =
+
             major * 100 +
-            parseInt(minor,10);
+
+            parseInt(
+                minor,
+                10
+            );
+
+
 
         /*
-          11.00 - 12.02 = lapse
-          12.50 - 13.00 = poops
+        Lapse
+
+        11.00
+        11.50
+        12.00
+        12.02
         */
 
-        if(fw <= 1202){
+        if(
+            fw <= 1202
+        ){
+
             return "lapse";
         }
 
-        if(fw >= 1250 && fw <= 1300){
+
+
+        /*
+        Poops
+
+        12.50
+        12.52
+        13.00
+        */
+
+        if(
+            fw >= 1250
+            &&
+            fw <= 1300
+        ){
+
             return "poops";
         }
+
+
 
         return null;
     }
 
 
+
+
     function loadChain(){
 
-        var bug = detect();
 
-        if(!bug){
-            btn.disabled = false;
+        var bug =
+            detect();
+
+
+
+        if(
+            !bug
+        ){
+
+            btn.disabled =
+                false;
+
+
             btn.textContent =
                 "UNSUPPORTED FIRMWARE";
+
+
             return;
         }
 
-        btn.disabled = true;
+
+
+        btn.disabled =
+            true;
+
+
         btn.textContent =
             "LOADING GOLDHEN...";
 
+
+
         var script =
-            document.createElement("script");
+
+            document
+            .createElement(
+                "script"
+            );
+
+
 
         /*
-          ئەمە زۆر گرنگە
-          chain_lapse.js / chain_poops.js
-          ES Module ـن
-        */
-        script.type = "module";
+        گرنگ:
 
-        if(bug === "lapse"){
+        chain_lapse.js
+        chain_poops.js
+
+        ES Module ـن
+        */
+
+        script.type =
+            "module";
+
+
+
+        if(
+            bug === "lapse"
+        ){
+
             script.src =
                 "./chain_lapse.js";
+
         }
+
         else{
+
             script.src =
                 "./chain_poops.js";
+
         }
 
-        script.onerror = function(){
 
-            btn.disabled = false;
 
-            btn.textContent =
-                "LOAD ERROR";
-        };
+        script.onerror =
+            function(){
 
-        document.body.appendChild(script);
+
+                btn.disabled =
+                    false;
+
+
+                btn.textContent =
+                    "LOAD ERROR";
+
+            };
+
+
+
+        document.body
+        .appendChild(
+            script
+        );
+
     }
 
 
+
+
     btn.addEventListener(
+
         "click",
+
         function(){
+
             loadChain();
+
         }
+
     );
 
 
+
+
     btn.addEventListener(
+
         "keydown",
+
         function(e){
 
+
             if(
-                e.keyCode === 13 ||
+
+                e.keyCode === 13
+
+                ||
+
                 e.keyCode === 88
+
             ){
+
                 loadChain();
+
             }
 
         }
+
     );
 
+
 })();
+
 </script>
 
+
 </body>
+
 </html>
