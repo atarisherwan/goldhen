@@ -1,8 +1,8 @@
 CACHE MANIFEST
-# ATARI SHERWAN GOLDHEN CACHE v106
+# ATARI SHERWAN GOLDHEN CACHE v107
 
 CACHE:
-./
+https://atarisherwan.github.io/goldhen/
 index.html
 atari_sherwan.png
 
@@ -47,6 +47,9 @@ fw13x/goldhen.bin
 fw13x/patches/1302.bin
 fw13x/patches/1350.bin
 fw13x/patches/1352.bin
+
+FALLBACK:
+/goldhen/ /goldhen/index.html
 
 NETWORK:
 *
