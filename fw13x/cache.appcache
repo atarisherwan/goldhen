@@ -3,22 +3,26 @@ CACHE MANIFEST
 
 CACHE:
 jb.html
+
+../atari_sherwan.png
+
 jb.js
+jb.js?v=10
+
 core.js
+core.js?v=10
+
 mem.js
 int64.js
 ps4_offsets.js
 rpc_worker.js
+
 payload2.bin
 goldhen.bin
+
 patches/1302.bin
 patches/1350.bin
 patches/1352.bin
-core.js?v=10
-jb.js?v=10
 
 NETWORK:
 *
-
-FALLBACK:
-jb.html jb.html
