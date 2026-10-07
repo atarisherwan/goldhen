@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>ATARI SHERWAN | GoldHEN</title>
 
 <style>
@@ -10,15 +11,18 @@
 
 html,body{
     margin:0;
+    padding:0;
     width:100%;
     height:100%;
     overflow:hidden;
     background:#000;
+}
+
+body{
     font-family:Arial,Helvetica,sans-serif;
 }
 
 .hero{
-    position:relative;
     width:100%;
     height:100%;
     display:flex;
@@ -27,8 +31,13 @@ html,body{
     padding:0 24px 7vh;
 
     background:
-      linear-gradient(to bottom,rgba(0,0,0,.02),rgba(0,0,0,.18)),
-      url("atari_sherwan.png") center center/cover no-repeat;
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.02),
+            rgba(0,0,0,.18)
+        ),
+        url("atari_sherwan.png")
+        center center / cover no-repeat;
 }
 
 #status{
@@ -39,31 +48,42 @@ html,body{
     border-radius:18px;
 
     background:
-      linear-gradient(180deg,
-      rgba(43,32,3,.94),
-      rgba(3,3,3,.97));
+        linear-gradient(
+            180deg,
+            rgba(43,32,3,.94),
+            rgba(3,3,3,.97)
+        );
 
     color:#fff;
-
-    font-size:23px;
+    text-align:center;
+    font-size:25px;
     font-weight:900;
     letter-spacing:2px;
-    text-align:center;
 
     box-shadow:
-      0 0 13px #ffcf00,
-      0 0 38px rgba(255,190,0,.62),
-      inset 0 0 22px rgba(255,190,0,.14);
+        0 0 13px #ffcf00,
+        0 0 38px rgba(255,190,0,.62),
+        inset 0 0 22px rgba(255,190,0,.14);
 
     text-shadow:
-      0 0 10px rgba(255,210,0,.65);
+        0 0 10px rgba(255,210,0,.65);
+}
+
+#state,
+#out{
+    position:absolute;
+    left:-99999px;
+    top:-99999px;
+    width:1px;
+    height:1px;
+    overflow:hidden;
 }
 
 @media(max-width:600px){
     #status{
         min-width:270px;
         padding:16px 28px;
-        font-size:18px;
+        font-size:20px;
     }
 }
 </style>
@@ -72,19 +92,26 @@ html,body{
 <body>
 
 <main class="hero">
-    <div id="status">LOADING GOLDHEN...</div>
+    <div id="status">
+        LOADING GOLDHEN...
+    </div>
 </main>
 
+<div id="state"></div>
+<div id="out"></div>
+
 <script>
-window.addEventListener("error",function(){
-    var s=document.getElementById("status");
-    if(s) s.textContent="LOADING GOLDHEN...";
-});
+try{
+    history.replaceState(
+        null,
+        "",
+        "/goldhen/"
+    );
+}catch(e){}
 </script>
 
-<!-- GoldHEN / poops chain -->
 <script type="module">
-    import "./chain_poops.js";
+import "./chain_poops.js";
 </script>
 
 </body>
