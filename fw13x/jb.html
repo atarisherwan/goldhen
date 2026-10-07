@@ -6,8 +6,16 @@
 
 <title>ATARI SHERWAN | GoldHEN</title>
 
+<!--
+فایلەکانی exploit هەر لە fw13x وەردەگیرێن،
+هەرچەندە URL ـەکە لە address bar کورت دەکەینەوە.
+-->
+<base href="/goldhen/fw13x/">
+
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
 html,body{
     margin:0;
@@ -69,6 +77,36 @@ body{
         0 0 10px rgba(255,210,0,.65);
 }
 
+.success,
+.failed{
+    display:none;
+}
+
+body.done #status .loading{
+    display:none;
+}
+
+body.done #status .success{
+    display:inline;
+}
+
+body.fail #status .loading{
+    display:none;
+}
+
+body.fail #status .failed{
+    display:inline;
+}
+
+body.done #status{
+    border-color:#fff;
+}
+
+body.fail #status{
+    border-color:#ff5555;
+}
+
+/* jb.js پێویستی بە state و out هەیە */
 #state,
 #out{
     position:absolute;
@@ -78,6 +116,51 @@ body{
     height:1px;
     overflow:hidden;
 }
+
+/* تەنها بۆ ?log=1 */
+#debug{
+    display:none;
+}
+
+body.log{
+    overflow:auto;
+}
+
+body.log .hero{
+    display:none;
+}
+
+body.log #debug{
+    display:block;
+    padding:18px;
+    background:#000;
+    color:#ddd;
+    min-height:100vh;
+}
+
+body.log #state{
+    position:static;
+    width:auto;
+    height:auto;
+    overflow:visible;
+    font-size:22px;
+    font-weight:bold;
+    color:#ffd21a;
+    margin-bottom:15px;
+}
+
+body.log #out{
+    position:static;
+    width:auto;
+    height:auto;
+    overflow:visible;
+    white-space:pre-wrap;
+    font:12px/1.45 monospace;
+}
+
+.ok{color:#7fd0a0}
+.warn{color:#ffd21a}
+.bad{color:#ff7777}
 
 @media(max-width:600px){
     #status{
@@ -92,22 +175,54 @@ body{
 <body>
 
 <main class="hero">
+
     <div id="status">
-        LOADING GOLDHEN...
+
+        <span class="loading">
+            LOADING GOLDHEN...
+        </span>
+
+        <span class="success">
+            GOLDHEN LOADED ✓
+        </span>
+
+        <span class="failed">
+            GOLDHEN FAILED
+        </span>
+
     </div>
+
 </main>
 
-<div id="state"></div>
-<div id="out"></div>
+<div id="debug">
+    <div id="state">LOADING GOLDHEN...</div>
+    <div id="out"></div>
+</div>
 
 <script>
-try{
-    history.replaceState(
-        null,
-        "",
-        "/goldhen/"
-    );
-}catch(e){}
+(function(){
+
+    /*
+    fw13x/jb.html لە address bar لادەبات.
+    ?log=1 یان هەر parameter ـێک هەبێت پارێزراو دەبێت.
+    */
+
+    try{
+
+        var clean =
+            "/goldhen/" +
+            location.search +
+            location.hash;
+
+        history.replaceState(
+            null,
+            "",
+            clean
+        );
+
+    }catch(e){}
+
+})();
 </script>
 
 <script type="module">
