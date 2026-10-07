@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# ATARI SHERWAN GOLDHEN CACHE v21
+# ATARI SHERWAN GOLDHEN CACHE v23
 
 CACHE:
 index.html
@@ -27,14 +27,18 @@ patches/1300.bin
 
 fw13x/jb.html
 fw13x/cache.appcache
+
 fw13x/jb.js
 fw13x/jb.js?v=10
+
 fw13x/core.js
 fw13x/core.js?v=10
+
 fw13x/mem.js
 fw13x/int64.js
 fw13x/ps4_offsets.js
 fw13x/rpc_worker.js
+
 fw13x/payload2.bin
 fw13x/goldhen.bin
 
